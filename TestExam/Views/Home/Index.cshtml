@@ -1,0 +1,28 @@
+﻿@model TestExam.ViewModels.SessionViewModel
+
+<div class="jumbotron">
+    <h2><span Style="color:forestgreen;">Online Exam System</span></h2>    
+</div>
+
+<br/><br/>
+@using (Html.BeginForm("Instraction", "Home", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row form-horizontal">
+            <div class="form-group">
+                <div class="col-md-3">@Html.Label("Выберите тест")</div>
+                <div class="col-md-5">@Html.DropDownListFor(p=>p.TestId, new SelectList(ViewBag.Tests, "Id", "TestName", Model.TestId), "--Выберите тест--", new {@class="form-control" })</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">@Html.Label("Введите имя")</div>
+                <div class="col-md-5">@Html.TextBoxFor(p=>p.UserName, Model.UserName, new { @class = "form-control" })</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3"></div>
+                <div class="col-md-5"><button type="submit" class="btn btn-primary">Продолжить</button></div>
+            </div>
+        </div>
+    </div>
+}
+
+

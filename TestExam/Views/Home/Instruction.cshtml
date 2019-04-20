@@ -1,0 +1,38 @@
+﻿@model TestExam.ViewModels.SessionViewModel
+
+<div class="container">
+    <div class="row">
+        <div>
+            <h2>@ViewBag.TestName</h2>
+        </div>
+    </div>
+    <br /><br />
+    <div class="row">
+
+    </div>
+    <div class="row">
+        Тест содержит @ViewBag.QuestionCount вопросов
+    </div>
+
+    @*@if (Model != null)
+    {
+        using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @id = "formRegister" }))
+        {
+            @Html.HiddenFor(p => Model.TestId)
+            @Html.HiddenFor(p => Model.UserName)
+            @Html.HiddenFor(p => Model.Email)
+
+            <a href="javascript:void(0);" onclick="getElementById('formRegister').submit();" class="btn btn-primary">Зарегистрироваться</a>
+            <div class="col-md-5"><button type="submit" class="btn btn-primary">Зарегистироваться</button></div>
+        }
+    }*@
+    @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @id = "formRegister" }))
+    {
+        @Html.HiddenFor(p => Model.TestId)
+        @Html.HiddenFor(p => Model.UserName)
+        @Html.HiddenFor(p => Model.Email)
+
+        <a href="javascript:void(0);" onclick="getElementById('formRegister').submit();" class="btn btn-primary">Зарегистрироваться</a>        
+    }
+</div>
+

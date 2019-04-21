@@ -7,17 +7,26 @@
 <br />
 <br />
 <div class="row">
+    <div class="col-md-10" style="color:red">
+        <p>
+            Вы ответили правильно на @Model.Result % вопросов теста
+        </p>
+        <br />
+    </div>
     <div class="col-md-12">
         <h4>Вопрос № @Model.QuestionNumber</h4>
     </div>
     <div class="col-md-10">
         <p>
             @Model.QuestionText
-            <br />
+        </p>
+        <br />
     </div>
 </div>
 
-@using (Html.BeginForm("PostAnswer", "Home", FormMethod.Post, new { @id = "form" }))
+@if (Model.QuestionNumber <= Model.TotalQuestionInSet)
+{
+using (Html.BeginForm("PostAnswer", "Home", FormMethod.Post, new { @id = "form" }))
 {
     <input type="hidden" name="Direction" value="forward" />    
     <input type="hidden" name="Token" value="@(Session["TOKEN"])" />
@@ -48,20 +57,14 @@
                 <td><a href="@Url.Action("EvalPage", new { @token = Session["TOKEN"], @tid = Session["TESTID"], @quesNum = (Model.QuestionNumber < (totalQuestion-1) ? Model.QuestionNumber+1 :totalQuestion)}) class="btn btn-default">Следующий</a></td>
                 <td><a href="javascript:void(0);" class="btn btn-primary" onclick="saveForward(this);">Сохранить&Следующий</a></td>
             </tr>
-        </table>*@
-            @if (Model.QuestionNumber <= Model.TotalQuestionInSet)
-            {
-                <a href="javascript:void(0);" class="btn btn-primary" onclick="saveForward(this);">Сохранить и Далее</a>
-            }
-            else
-            {
-                <a href="javascript:void(0);" class="btn btn-primary" onclick="saveAndResult(this);">Сохранить и Вывести результат</a>
-            }
-            @*<a href="javascript:void(0);" class="btn btn-primary" onclick="saveForward(this);">Сохранить и Далее</a>*@
+        </table>*@            
+            <a href="javascript:void(0);" class="btn btn-primary" onclick="saveForward(this);">Сохранить и Далее</a>
         </div>
     </div>
 
 }
+}
+
 
 
 <script>    

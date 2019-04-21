@@ -211,7 +211,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Instruction.cshtml" />
     <Content Include="Views\Home\EvalPage.cshtml" />
-    <Content Include="Views\Home\PassTest.cshtml" />
     <Content Include="Views\Home\ResultPage.cshtml" />
   </ItemGroup>
   <ItemGroup>

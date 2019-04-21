@@ -13,12 +13,12 @@ namespace TestExam.ViewModels
         public string TestName { get; set; }
         public string QuestionText { get; set; }        
         public List<AnswerViewModel> Options { get; set; }
+        public int Result { get; set; }
     }
 
     public class AnswerViewModel
     {
         public int AnswerId { get; set; }
-        public string AnswerText { get; set; }
-        public bool IsCorrect { get; set; }
+        public string AnswerText { get; set; }        
     }
 }

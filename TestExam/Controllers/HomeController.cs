@@ -26,30 +26,7 @@ namespace TestExam.Controllers
             return View(_model);
             
         }
-
-        //[HttpGet]
-        public ActionResult PassTest(int testId)
-        {
-            var test = _dbContext.Tests.SingleOrDefault(p => p.Id == testId);
-            //ViewBag.testName = test.TestName;
-            return View(test);
-
-            //if (testId == null)
-            //    return View("Error");
-            //else
-            //{
-            //    var test = _dbContext.Tests.SingleOrDefault(p => p.Id == testId);
-            //    ViewBag.testName = test.TestName;
-            //    return View();
-            //}             
-        }
-
-        //[HttpPost]
-        //public ActionResult PassTest(Test test)
-        //{
-
-        //    return View();
-        //}
+        
 
         public ActionResult Instruction(SessionViewModel model)
         {
@@ -148,8 +125,7 @@ namespace TestExam.Controllers
                     Options=p.Answers.Select(x=> new AnswerViewModel()
                     {
                         AnswerId=x.Id,
-                        AnswerText=x.AnswerText,
-                        IsCorrect=x.IsCorrect
+                        AnswerText=x.AnswerText                        
                     }).ToList()
                 }).FirstOrDefault();
 
@@ -158,6 +134,7 @@ namespace TestExam.Controllers
                     .Select(p => p.AnswerId ).FirstOrDefault();                
 
                 model.TotalQuestionInSet = context.Questions.Where(p => p.TestId == registration.TestsId).Count();
+                model.Result = (context.Results.Where(p => p.RegistrationId == registration.Id && p.Score == 1).Count() * 100) / model.TotalQuestionInSet;
 
                 return View(model);
             }
@@ -201,17 +178,12 @@ namespace TestExam.Controllers
                 nextQuestionNumber = context.Questions.Where(p => p.TestId == model.TestId 
                     && p.QuestionNumber > model.QuestionNum && p.QuestionNumber<=countOfQuestions)
                     .OrderBy(p => p.QuestionNumber).Take(1).Select(p => p.QuestionNumber).FirstOrDefault();
-            }
-            //else
-            //{
-            //    nextQuestionNumber = context.Questions.Where(p => p.TestId == model.TestId && p.QuestionNumber < model.QuestionNum)
-            //        .OrderByDescending(p => p.QuestionNumber).Take(1).Select(p => p.QuestionNumber).FirstOrDefault();
-            //}
+            }            
 
             if (nextQuestionNumber < 1)
                 nextQuestionNumber = 1;
 
-            
+
             if (nextQuestionNumber <= countOfQuestions)
             {
                 return RedirectToAction("EvalPage", new
@@ -221,13 +193,15 @@ namespace TestExam.Controllers
                 });
             }
             else
+            {
                 return RedirectToAction("ResultPage", new
                 {
-                    @token=Session["TOKEN"]
+                    @token = Session["TOKEN"]
                 });
+            }
         }
 
-
+        [HttpPost]
         public ActionResult ResultPage(Guid ? token)
         {
             var context = new TestExamDbContext();

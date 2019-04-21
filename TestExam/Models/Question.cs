@@ -15,5 +15,6 @@ namespace TestExam.Models
         public Test Test { get; set; }
 
         public ICollection<Answer> Answers { get; set; }
+        public ICollection<Result> Results { get; set; }
     }
 }

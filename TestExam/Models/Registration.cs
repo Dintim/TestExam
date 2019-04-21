@@ -15,5 +15,7 @@ namespace TestExam.Models
 
         public int TestsId { get; set; }
         public Test Test { get; set; }
+
+        public ICollection<Result> Results { get; set; }
     }
 }

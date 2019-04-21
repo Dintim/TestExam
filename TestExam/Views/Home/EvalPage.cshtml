@@ -1,14 +1,76 @@
 ﻿@model TestExam.ViewModels.QuestionViewModel
 
-@Html.Raw(Model.QuestionText)
 
-@Model.QuestionNumber
+@{
+    var totalQuestion = Model.TotalQuestionInSet;
+}
+<br />
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <h4>Вопрос № @Model.QuestionNumber</h4>
+    </div>
+    <div class="col-md-10">
+        <p>
+            @Model.QuestionText
+            <br />
+    </div>
+</div>
 
-<table>
-    <tr>
-        @for (int i = 0; i < Model.TotalQuestionInSet; i++)
+@using (Html.BeginForm("PostAnswer", "Home", FormMethod.Post, new { @id = "form" }))
+{
+    <input type="hidden" name="Direction" value="forward" />    
+    <input type="hidden" name="Token" value="@(Session["TOKEN"])" />
+    <input type="hidden" name="TestId" value="@(Model.TestId)" />
+    <input type="hidden" name="QuestionNum" value="@(Model.QuestionNumber)" />
+
+    <div class="row">
+        @foreach (var item in Model.Options)
         {
-
+            <input type="hidden" name="UserChoice.ChoiceId" value="@item.AnswerId" />
+            <input type="radio" name="UserChoice.IsChecked" />@(item.AnswerText)
+            <br />
         }
-    </tr>
-</table>
+        <br />
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            @*<table>
+            <tr>
+                <td><a href="javascript:void(0);" class="btn btn-primary" onclick="saveBackward(this);">Сохранить&Предыдущий</a></td>
+                <td><a href="@Url.Action("EvalPage", new { @token = Session["TOKEN"], @tid = Session["TESTID"], @quesNum = (Model.QuestionNumber > 1 ? Model.QuestionNumber-1:1)}) class="btn btn-default">Предыдущий</a></td>
+                @for (int i = 0; i < Model.TotalQuestionInSet; i++)
+                {
+                    <td>
+                        <a href="@Url.Action("EvalPage", "Home", new { @token = Session["TOKEN"], @tid = Session["TESTID"], @quesNum = (i + 1) })" class="btn btn-success">@(i + 1)</a>
+                    </td>
+                }
+                <td><a href="@Url.Action("EvalPage", new { @token = Session["TOKEN"], @tid = Session["TESTID"], @quesNum = (Model.QuestionNumber < (totalQuestion-1) ? Model.QuestionNumber+1 :totalQuestion)}) class="btn btn-default">Следующий</a></td>
+                <td><a href="javascript:void(0);" class="btn btn-primary" onclick="saveForward(this);">Сохранить&Следующий</a></td>
+            </tr>
+        </table>*@
+            @if (Model.QuestionNumber <= Model.TotalQuestionInSet)
+            {
+                <a href="javascript:void(0);" class="btn btn-primary" onclick="saveForward(this);">Сохранить и Далее</a>
+            }
+            else
+            {
+                <a href="javascript:void(0);" class="btn btn-primary" onclick="saveAndResult(this);">Сохранить и Вывести результат</a>
+            }
+            @*<a href="javascript:void(0);" class="btn btn-primary" onclick="saveForward(this);">Сохранить и Далее</a>*@
+        </div>
+    </div>
+
+}
+
+
+<script>    
+    function saveForward(sender) {
+        $('#direction').val('forward');
+        document.getElementById('form').submit();
+    }
+    function saveAndResult(sender) {
+        $('#direction').val('forward');
+        document.getElementById('form').submit();
+    }
+</script>

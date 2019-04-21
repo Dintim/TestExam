@@ -11,28 +11,19 @@
 
     </div>
     <div class="row">
-        Тест содержит @ViewBag.QuestionCount вопросов
+        <p>Тест содержит @ViewBag.QuestionCount вопросов</p>
+        <p>Для прохождения теста нажмите кнопку Регистрации - все данные, введенные в предыдущей форме, будут сохранены в базе данных</p>
+        <p>Отвечая на вопрос, нажмите копку Сохранить и Далее для сохранения ответа в базе данных</p>
+        <br />
     </div>
-
-    @*@if (Model != null)
-    {
-        using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @id = "formRegister" }))
-        {
-            @Html.HiddenFor(p => Model.TestId)
-            @Html.HiddenFor(p => Model.UserName)
-            @Html.HiddenFor(p => Model.Email)
-
-            <a href="javascript:void(0);" onclick="getElementById('formRegister').submit();" class="btn btn-primary">Зарегистрироваться</a>
-            <div class="col-md-5"><button type="submit" class="btn btn-primary">Зарегистироваться</button></div>
-        }
-    }*@
+    
     @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @id = "formRegister" }))
     {
         @Html.HiddenFor(p => Model.TestId)
         @Html.HiddenFor(p => Model.UserName)
         @Html.HiddenFor(p => Model.Email)
 
-        <a href="javascript:void(0);" onclick="getElementById('formRegister').submit();" class="btn btn-primary">Зарегистрироваться</a>        
+        <a href="javascript:void(0);" onclick="getElementById('formRegister').submit();" class="btn btn-primary">Зарегистрироваться и Начать</a>        
     }
 </div>
 

@@ -24,9 +24,8 @@
     </div>
 </div>
 
-@if (Model.QuestionNumber <= Model.TotalQuestionInSet)
-{
-using (Html.BeginForm("PostAnswer", "Home", FormMethod.Post, new { @id = "form" }))
+
+@using (Html.BeginForm("PostAnswer", "Home", FormMethod.Post, new { @id = "form" }))
 {
     <input type="hidden" name="Direction" value="forward" />    
     <input type="hidden" name="Token" value="@(Session["TOKEN"])" />
@@ -43,27 +42,23 @@ using (Html.BeginForm("PostAnswer", "Home", FormMethod.Post, new { @id = "form" 
         <br />
     </div>
     <div class="row">
-        <div class="col-md-10">
-            @*<table>
-            <tr>
-                <td><a href="javascript:void(0);" class="btn btn-primary" onclick="saveBackward(this);">Сохранить&Предыдущий</a></td>
-                <td><a href="@Url.Action("EvalPage", new { @token = Session["TOKEN"], @tid = Session["TESTID"], @quesNum = (Model.QuestionNumber > 1 ? Model.QuestionNumber-1:1)}) class="btn btn-default">Предыдущий</a></td>
-                @for (int i = 0; i < Model.TotalQuestionInSet; i++)
-                {
+        <div class="col-md-10">            
+            <table>
+                <tr>
                     <td>
-                        <a href="@Url.Action("EvalPage", "Home", new { @token = Session["TOKEN"], @tid = Session["TESTID"], @quesNum = (i + 1) })" class="btn btn-success">@(i + 1)</a>
+                        <a href="javascript:void(0);" class="btn btn-primary" onclick="saveForward(this);">Сохранить и Далее</a>
                     </td>
-                }
-                <td><a href="@Url.Action("EvalPage", new { @token = Session["TOKEN"], @tid = Session["TESTID"], @quesNum = (Model.QuestionNumber < (totalQuestion-1) ? Model.QuestionNumber+1 :totalQuestion)}) class="btn btn-default">Следующий</a></td>
-                <td><a href="javascript:void(0);" class="btn btn-primary" onclick="saveForward(this);">Сохранить&Следующий</a></td>
-            </tr>
-        </table>*@            
-            <a href="javascript:void(0);" class="btn btn-primary" onclick="saveForward(this);">Сохранить и Далее</a>
+                    <td>
+                        <a href="ResultPage?@(Session["TOKEN"])" class="btn btn-success">Результат</a>
+                    </td>
+                </tr>                
+            </table>
+            
         </div>
     </div>
 
 }
-}
+
 
 
 
@@ -71,9 +66,5 @@ using (Html.BeginForm("PostAnswer", "Home", FormMethod.Post, new { @id = "form" 
     function saveForward(sender) {
         $('#direction').val('forward');
         document.getElementById('form').submit();
-    }
-    function saveAndResult(sender) {
-        $('#direction').val('forward');
-        document.getElementById('form').submit();
-    }
+    }    
 </script>

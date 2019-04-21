@@ -201,8 +201,8 @@ namespace TestExam.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult ResultPage(Guid ? token)
+        
+        public ActionResult ResultPage(Guid token)
         {
             var context = new TestExamDbContext();
             var registration = context.Registrations.SingleOrDefault(p => p.Token == token);
@@ -214,7 +214,7 @@ namespace TestExam.Controllers
 
             var userScores = context.Results.Where(p => p.RegistrationId == registration.Id && p.Score==1).Count();
             var totalScore = context.Questions.Where(p => p.TestId == registration.TestsId).Count();
-            var percentOfTotalScore = (userScores / 100) * totalScore;
+            var percentOfTotalScore = (userScores * 100) / totalScore;
             ViewBag.PercentOfTotalScore = percentOfTotalScore;
             return View();
 
@@ -234,6 +234,9 @@ namespace TestExam.Controllers
 
             return View();
         }
+
+
+
 
 
         private void Initial()

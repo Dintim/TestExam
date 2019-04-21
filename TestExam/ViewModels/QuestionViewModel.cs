@@ -5,17 +5,17 @@ using System.Web;
 
 namespace TestExam.ViewModels
 {
-    public class TestViewModel
+    public class QuestionViewModel
     {
         public int TotalQuestionInSet { get; set; }
         public int QuestionNumber { get; set; }
         public int TestId { get; set; }
         public string TestName { get; set; }
         public string QuestionText { get; set; }        
-        public List<QXAModel> Answers { get; set; }
+        public List<AnswerViewModel> Options { get; set; }
     }
 
-    public class QXAModel
+    public class AnswerViewModel
     {
         public int AnswerId { get; set; }
         public string AnswerText { get; set; }

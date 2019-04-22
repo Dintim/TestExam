@@ -36,7 +36,7 @@
         @foreach (var item in Model.Options)
         {
             <input type="hidden" name="UserChoice.ChoiceId" value="@item.AnswerId" />
-            <input type="radio" name="UserChoice.IsChecked" />@(item.AnswerText)
+            <input type="radio" name="UserChoice.ChoiceText" />@(item.AnswerText)
             <br />
         }
         <br />
